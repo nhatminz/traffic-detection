@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push URL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/push_url.css') }}">
+</head>
+<body>
+    <div class="push-container">
+        <div class="logocontainer">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/push_url" autocomplete="off">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="url">Enter URL</label>
+                {{ form.url(class_='form-control', placeholder='https://example.com') }}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-submit">Push</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

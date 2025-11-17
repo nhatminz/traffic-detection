@@ -3,7 +3,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="views/static",
+    template_folder="views/templates"
+    )
 app.secret_key = "secretkey"  # dùng cho flash messages và form CSRF
 
 # Tạo form login bằng Flask-WTF

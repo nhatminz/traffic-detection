@@ -21,7 +21,7 @@
         {% endif %}
         {% endwith %}
 
-        <form method="POST" action="/login" autocomplete="off">
+        <form method="POST" action="{{ url_for('main.login') }}" autocomplete="off">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.username.label }}<br>

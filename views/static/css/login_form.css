@@ -1,0 +1,70 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background: linear-gradient(to right, #65e1ca, #ACB6E5);
+    margin: 0px;
+    padding: 0px;
+    /* align-items: center; */
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container {
+    height: auto;
+    width: 350px;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: rgb(97, 155, 216);
+    border-radius:30px;
+    box-shadow: 0px 0px 10px #aaa;
+    justify-content: center;
+}
+
+.logo img {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 150px;
+    height: 150px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    color: black;
+    font-style: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #055fbf;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+}
+
+button:hover {
+    background-color: #125296;
+}
+
+.flash-messages {
+    margin-bottom: 15px;
+}
+
+.alert.success {
+    color: green;
+}
+
+.alert.danger {
+    color: red;
+}

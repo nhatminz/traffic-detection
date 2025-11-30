@@ -1,5 +1,6 @@
 from flask import Flask
 from controllers.main_controller import main_bp
+from controllers.video_controller import video_bp
 
 app = Flask(
     __name__,
@@ -9,6 +10,7 @@ app = Flask(
 app.secret_key = "your-secret-key"   # BẮT BUỘC: session cần secret_key
 
 app.register_blueprint(main_bp)
+app.register_blueprint(video_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -95,6 +95,10 @@ def submit_url():
                 if video_id:
                     yt.global_video_id = video_id
                     yt.global_stream_url = None
+                    global global_video_id
+                    global global_stream_url
+                    global_video_id = video_id
+                    global_stream_url = None
                     session["url_entered"] = True
                     return redirect(url_for('main.dashboard'))
                 else:
@@ -105,6 +109,9 @@ def submit_url():
             elif re.match(ip_stream_regex, input_url):
                 yt.global_stream_url = input_url
                 yt.global_video_id = None
+                global_stream_url, global_video_id
+                global_stream_url = input_url
+                global_video_id = None
                 session["url_entered"] = True
                 return redirect(url_for('main.dashboard'))
 
@@ -131,9 +138,26 @@ def submit_url():
 def dashboard():
     # Tạm in ra URL/ID đã chọn, sau này bạn thay bằng logic detection
     return render_template(
-        "index.html",
+        "main_page.html",
         video_id=yt.global_video_id,
         stream_url=yt.global_stream_url,
         username=session.get("username")
     )
 
+@main_bp.route('/traffic_data')
+@login_required
+@url_required
+def traffic_data():
+    try:
+        from models.tracking import traffic_analysis_data
+        analysis_data_serializable = {
+            'vehicle_count': int(traffic_analysis_data.get('vehicle_count', 0)),
+            'avg_speed': float(traffic_analysis_data.get('avg_speed', 0.0)),
+            'is_traffic_jam': bool(traffic_analysis_data.get('is_traffic_jam', False)),
+            'too_many_heavy_vehicles': bool(traffic_analysis_data.get('too_many_heavy_vehicles', False)),
+            'estimated_clearance_time': float(traffic_analysis_data.get('estimated_clearance_time', 0.0)),
+            'traffic_light_decision': traffic_analysis_data.get('traffic_light_decision', ["Red", 30])
+        }
+        return analysis_data_serializable
+    except Exception as e:
+        return render_template('error_page.html', message=str(e) + " From: /traffic_data"), 500

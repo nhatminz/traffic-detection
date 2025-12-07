@@ -1,18 +1,21 @@
-html, body {
+body {
     height: 100%;
     margin: 0;
+    padding: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background: linear-gradient(to right, #65e1ca, #ACB6E5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .push-container {
-    max-width: 400px;
-    margin: 100px auto;
-    background-color: rgba(255, 255, 255, 0.9);
+    width: 350px;
+    margin: 250px auto;
+    background-color: rgb(97, 155, 216);
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    text-align: center;
 }
 
 .logocontainer img {
@@ -41,18 +44,20 @@ html, body {
 .btn-submit {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    margin-top: 10px;
+    background-color: #055fbf;
     border: none;
     color: white;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: medium;
+    /* font-weight: 600; */
     border-radius: 10px;
     cursor: pointer;
-    transition: background 0.3s;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    /* transition: background 0.3s; */
 }
 
 .btn-submit:hover {
-    background-color: #0056b3;
+    background-color: #125296;
 }
 
 .flash-messages {
@@ -60,8 +65,11 @@ html, body {
 }
 
 .alert.success {
-    color: #155724;
+    color: green;
     background-color: #d4edda;
     padding: 10px;
     border-radius: 4px;
+}
+.alert.danger {
+    color: red;
 }

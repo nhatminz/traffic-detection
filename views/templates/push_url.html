@@ -24,7 +24,7 @@
         {% endif %}
         {% endwith %}
 
-        <form method="POST" action="/push_url" autocomplete="off">
+        <form method="POST" action="{{ url_for('main.submit_url') }}" autocomplete="off">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 <label for="url">Enter URL</label>

@@ -26,7 +26,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     height: 90vh;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .chart-content {
@@ -41,16 +41,41 @@ body {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .traffic-box {
     margin-top: 9px;
+}
+.videoloader {
+    border: 4px solid #ffffff; /* Light grey */
+    border-top: 4px solid #0008ff; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    box-shadow: 0 0 4px rgb(0, 59, 254);
 }
 
 .video-content {
     height: 40vh;
     background: #ddd;
     border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-content img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .traffic-content {

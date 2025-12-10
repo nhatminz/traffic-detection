@@ -103,6 +103,11 @@
   <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <script type="module">
+    import { getCurrentLabelColor, setupThemeToggle } from "{{ url_for('static', filename='js/setupThemeToggle.js') }}";
+    window.getCurrentLabelColor = getCurrentLabelColor;
+    setupThemeToggle();
+  </script>
 
   <script>
   // Unified script: creates charts and updates them periodically.
@@ -173,6 +178,7 @@
     }
 
     function createChartsFromAggregated(agg) {
+    
       const labelColor = getCurrentLabelColor();
 
       // Pie chart

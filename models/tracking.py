@@ -4,6 +4,12 @@ import torch
 from ultralytics import YOLO
 import signal
 
+
+print(">>> tracking.py LOADED", flush=True)
+
+# For analyzing traffic
+traffic_analysis_data = {}
+
 def get_show_video():
     from models.state import VideoState  
     return VideoState.get_show_video()
@@ -64,7 +70,6 @@ class VehicleTracker:
             speed_kmh = speed_meters_per_second * 3.6
             return speed_kmh
         return 0
-    
 
 class TrafficAnalyzer:
     def __init__(self, road_area, heavy_vehicle_threshold=0.3):
@@ -73,10 +78,12 @@ class TrafficAnalyzer:
         self.vehicle_tracker = VehicleTracker()
 
     def analyze_traffic(self, detections):
+        import numpy as np
+
         self.vehicle_tracker.update(detections)
         vehicle_count = len(self.vehicle_tracker.vehicles)
         heavy_vehicle_count = sum(1 for v in self.vehicle_tracker.vehicles.values() 
-                                if v['type'] in [5, 7, 80])
+                                  if v['type'] in [5, 7, 80])
 
         speeds = [self.vehicle_tracker.get_vehicle_speed(id, 100) for id in self.vehicle_tracker.vehicles]
         avg_speed = np.mean(speeds) if speeds else 0
@@ -94,12 +101,12 @@ class TrafficAnalyzer:
             'estimated_clearance_time': estimated_clearance_time,
             'traffic_light_decision': traffic_light_decision
         }
-    
+
     def estimate_clearance_time(self, vehicle_count, avg_speed):
         if avg_speed > 0:
             return (vehicle_count * 5) / avg_speed
         return float('inf')
-    
+
     def decide_traffic_light(self, is_traffic_jam, too_many_heavy_vehicles, avg_speed):
         if is_traffic_jam:
             return 'green', 120
@@ -109,7 +116,7 @@ class TrafficAnalyzer:
             return 'green', 60
         else:
             return 'red', 30
-        
+
 def log_to_google_sheets(timestamp, x1, y1, x2, y2, class_name, confidence, track_id):
     from models.sheets import global_sheet, initialize_google_sheets
 
@@ -213,6 +220,11 @@ def generate_frames():
 
         traffic_analysis = traffic_analyzer.analyze_traffic(filtered_boxes)
         traffic_analysis_data = traffic_analysis
+        print("🔍 Traffic Analysis:", traffic_analysis_data)
+        print("Vehicle Count:", traffic_analysis_data.get("vehicle_count"))
+        print("Avg Speed:", traffic_analysis_data.get("avg_speed"))
+        print("Traffic Jam:", traffic_analysis_data.get("is_traffic_jam"))
+
 
         # If show_video is off, replace frame with blank
         if not get_show_video():

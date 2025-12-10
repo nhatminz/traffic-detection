@@ -75,11 +75,33 @@
 
             <!-- Traffic analysis -->
             <div class="traffic-box">
-                <h3>Traffic Analysis</h3>
-                <div class="traffic-content">
-                    <!-- Bạn sẽ thêm thông tin sau -->
-                </div>
-            </div>
+                  <h3>Traffic Analysis</h3>
+                  <div class="traffic-content">
+                      <p><strong>Vehicle Count:</strong> 
+                          <span class="data-field" id="vehicleCount">Loading...</span>
+                      </p>
+                      <p><strong>Average Speed:</strong> 
+                          <span class="data-field" id="avgSpeed">Loading...</span>
+                      </p>
+                      <p><strong>Traffic Jam Condition:</strong> 
+                          <span class="data-field" id="trafficJam">Loading...</span>
+                      </p>
+                      <p><strong>Many Heavy Vehicles Present:</strong> 
+                          <span class="data-field" id="heavyVehicles">Loading...</span>
+                      </p>
+                      <p><strong>Estimated Road Clearance Time:</strong> 
+                          <span class="data-field" id="clearanceTime">Loading...</span>
+                      </p>
+
+                      <div class="tl">
+                          <p><strong>Suggested Traffic Light:</strong></p>
+                          <div class="trafficlight">
+                              <div class="light"></div>
+                              <p id="trafficLight">Loading...</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
         </div>
 
@@ -329,6 +351,7 @@
         </div>
 
     </div>
-
+  <!-- App logic: update date/time, analysis, eye button,... -->
+  <script type="module" src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

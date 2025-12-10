@@ -14,8 +14,8 @@ app = Flask(
 )
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')   # BẮT BUỘC: session cần secret_key
 
-from models.decryption import decrypt_file  
-decrypt_file()  
+# from models.decryption import decrypt_file  
+# decrypt_file()  
 
 from models.sheets import get_service_account_file
 SERVICE_ACCOUNT_FILE = get_service_account_file()
@@ -24,4 +24,4 @@ app.register_blueprint(main_bp)
 app.register_blueprint(video_bp)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=8000, debug=True)

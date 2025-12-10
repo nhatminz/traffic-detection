@@ -6,7 +6,7 @@ import atexit
 import signal
 from models.state import DecryptionStatus 
 
-gpg = gnupg.GPG()
+gpg = gnupg.GPG("/usr/local/bin/gpg")
 input_file = "credentials.json.gpg"
 output_file = "credentials.json"
 

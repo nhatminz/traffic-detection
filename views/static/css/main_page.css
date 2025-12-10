@@ -87,3 +87,24 @@ body {
 h3 {
     margin-top: 0;
 }
+
+.right-side {
+    height: 100vh;
+}
+
+.chart-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chart-content canvas {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+.chart-item {
+    flex: 1;
+    height: 100%;
+}

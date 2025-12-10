@@ -1,113 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computer Vision Dashboard</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_page.css') }}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Charts Dashboard</title>
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main_page.css') }}"> -->
 </head>
 <body>
-    <header>
-      <div class="head">
-            <div class="datedisplay">
-                <div id="date">Loading</div>
-                <div id="time">Loading</div>
-            </div>
-        <div class="head-content">
-        <h1 class="stylishtext">Traffic Analysis and Assessment</h1>
-        <div class="buttons">
-        <div class="subbuttons">
-        <div class="tooltip-container">
-            <img 
-              class="eyebutton" 
-              id="eyebutton" 
-              style="width: 30px; height: 30px;" 
-              src="{{ url_for('static', filename='images/eyeopen.png') }}" 
-              alt="eye"
-            >
-            <span class="tooltip-text1">Detection Visibility On</span>
-          </div>
-          
-          <!-- Database Button -->
-          <div class="tooltip-container">
-            <a 
-              href="https://docs.google.com/spreadsheets/d/12vTS7-9aQg4QnU5s0d2Oo2mQfohEVVQEfqEtm2EaL7Y/edit?gid=0#gid=0" 
-              class="databasebutton" 
-              target="_blank"
-            >
-              <img 
-                style="width: 30px; height: 30px;" 
-                src="{{ url_for('static', filename='images/database.png') }}" 
-                alt="Table"
-              >
-            </a>
-            <span class="tooltip-text">Open Database</span>
-          </div>
-        </div>
-          <!-- Toggle Button -->
-          <div class="tooltip-container">
-            <div class="togglebutton"></div>
-            <span class="tooltip-text2">Light Mode</span>
-          </div>
-          </div>
-        </div>
+  <div class="chart-container">
+      <div class="chart-item1">
+          <canvas id="classLabelChart"></canvas>
       </div>
-    </header>
+      <div class="chart-item">
+          <canvas id="vehicleTimeChart"></canvas>
+      </div>
+      <div class="chart-item">
+          <canvas id="roadOccupancyChart"></canvas>
+      </div>
+  </div>
 
-    <div class="container">
-        
-        <!-- LEFT SIDE -->
-        <div class="left-side">
-
-            <!-- Video section -->
-            <div class="video-box">
-                <h3>Video Stream</h3>
-                <div class="video-content">
-                    <div id="videoloader" class="videoloader" style="display: none;"></div>
-                    <script>console.log("chuẩn bị video");</script>
-                    <img src="{{ url_for('video.video_feed') }}" alt="Live Traffic Stream" id="videoStream">
-                </div>
-            </div>
-
-            <!-- Traffic analysis -->
-            <div class="traffic-box">
-                <h3>Traffic Analysis</h3>
-                <div class="traffic-content">
-                    <!-- Bạn sẽ thêm thông tin sau -->
-                </div>
-            </div>
-
-        </div>
-
-        <!-- RIGHT SIDE -->
-        <div class="right-side">
-            <h3>Charts</h3>
-            <div class="chart-content">
-                <div class="chart-item">
-                    <canvas id="classLabelChart"></canvas>
-                </div>
-                <div class="chart-item">
-                    <canvas id="vehicleTimeChart"></canvas>
-                </div>
-                <div class="chart-item">
-                    <canvas id="roadOccupancyChart"></canvas>
-                </div>
-            </div>
-                 <!-- {% include 'chart_dashboard.html' %} -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js and plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  <script type="module">
-    import { getCurrentLabelColor, setupThemeToggle } from "{{ url_for('static', filename='js/setupThemeToggle.js') }}";
-    window.getCurrentLabelColor = getCurrentLabelColor;
-    setupThemeToggle();
-  </script>
 
   <script>
   // Unified script: creates charts and updates them periodically.
@@ -117,6 +34,9 @@
     let roadOccupancyChart = null;
     const REFRESH_MS = 5000;
     let intervalId = null;
+
+    // Safe hook for theme helper (if your setupThemeToggle.js exposes a global function)
+    // const getCurrentLabelColor = window.getCurrentLabelColor || (() => 'black');
 
     // Convert raw rows (array of objects) into the structured object the UI expects
     function aggregateRows(rows) {
@@ -178,11 +98,9 @@
     }
 
     function createChartsFromAggregated(agg) {
-    
       const labelColor = getCurrentLabelColor();
 
       // Pie chart
-      console.log("chuẩn bị tạo chart 1");
       classLabelChart = new Chart(document.getElementById('classLabelChart'), {
         type: 'pie',
         data: {
@@ -205,7 +123,6 @@
       });
 
       // Line chart (vehicle count over time)
-      console.log("chuẩn bị tạo chart 2");
       vehicleTimeChart = new Chart(document.getElementById('vehicleTimeChart'), {
         type: 'line',
         data: {
@@ -233,7 +150,6 @@
       });
 
       // Bar chart (road occupancy)
-      console.log("chuẩn bị tạo chart 3");
       roadOccupancyChart = new Chart(document.getElementById('roadOccupancyChart'), {
         type: 'bar',
         data: {
@@ -312,22 +228,44 @@
       }, REFRESH_MS);
     }
 
+    // theme update (callable externally when theme toggled)
+    // function updateThemeColors() {
+    //   const color = getCurrentLabelColor();
+    //   // update chart text colors quickly before calling update()
+    //   if (classLabelChart) {
+    //     classLabelChart.options.plugins.legend.labels.color = color;
+    //     classLabelChart.options.plugins.datalabels.color = color;
+    //     classLabelChart.update();
+    //   }
+    //   if (vehicleTimeChart) {
+    //     vehicleTimeChart.options.scales.x.ticks.color = color;
+    //     vehicleTimeChart.options.scales.y.ticks.color = color;
+    //     vehicleTimeChart.options.scales.x.title.color = color;
+    //     vehicleTimeChart.options.scales.y.title.color = color;
+    //     vehicleTimeChart.options.plugins.legend.labels.color = color;
+    //     vehicleTimeChart.update();
+    //   }
+    //   if (roadOccupancyChart) {
+    //     roadOccupancyChart.options.scales.x.ticks.color = color;
+    //     roadOccupancyChart.options.scales.y.ticks.color = color;
+    //     roadOccupancyChart.options.scales.x.title.color = color;
+    //     roadOccupancyChart.options.scales.y.title.color = color;
+    //     roadOccupancyChart.options.plugins.legend.labels.color = color;
+    //     roadOccupancyChart.update();
+    //   }
+    // }
+
+    // expose theme update so other scripts (e.g. your toggle) can call it:
+    // window.updateChartTheme = updateThemeColors;
+
     // cleanup on page unload
     window.addEventListener('beforeunload', () => {
       if (intervalId) clearInterval(intervalId);
     });
 
     // start
-    console.log("before fetching")
     startFetching();
   })();
   </script>
-
-
-            </div>
-        </div>
-
-    </div>
-
 </body>
 </html>

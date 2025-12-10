@@ -1,4 +1,11 @@
 from functools import wraps
+from models.forms import LoginForm, URLForm
+from models.sheets import get_cached_data, initialize_google_sheets, global_sheet
+from models.youtube_stream import extract_video_id, global_video_id
+from models.decryption import check_decryption_status
+import re
+from functools import wraps
+from flask import Blueprint, Response, jsonify, render_template, redirect, url_for, flash, session, send_file
 import os
 
 from flask import (
@@ -161,3 +168,33 @@ def traffic_data():
         return analysis_data_serializable
     except Exception as e:
         return render_template('error_page.html', message=str(e) + " From: /traffic_data"), 500
+
+@main_bp.route('/get_chart_data', methods=['GET','POST'])
+@login_required
+@url_required
+def get_chart_data():
+    try:
+        rows = get_cached_data()
+        classLabels = {}
+        timeData = {}
+        roadOccupancy = {}
+
+        for row in rows:
+            timestamp = row['Timestamp']
+            classLabel = row['Class Name']
+            width = float(row['Width'])
+            height = float(row['Height'])
+            area = width * height
+
+            classLabels[classLabel] = classLabels.get(classLabel, 0) + 1
+            timeKey = timestamp.split()[0][:5]
+            timeData[timeKey] = timeData.get(timeKey, 0) + 1
+            roadOccupancy[classLabel] = roadOccupancy.get(classLabel, 0) + area
+
+        return {
+            'classLabels': {'keys': list(classLabels.keys()), 'values': list(classLabels.values())},
+            'timeData': {'keys': list(timeData.keys()), 'values': list(timeData.values())},
+            'roadOccupancy': {'keys': list(roadOccupancy.keys()), 'values': list(roadOccupancy.values())}
+        }
+    except Exception as e:
+        return render_template('error_page.html', message=str(e) + " From: /get_chart_data"), 500

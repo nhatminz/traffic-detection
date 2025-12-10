@@ -161,3 +161,33 @@ def traffic_data():
         return analysis_data_serializable
     except Exception as e:
         return render_template('error_page.html', message=str(e) + " From: /traffic_data"), 500
+
+@main_bp.route('/get_chart_data', methods=['GET','POST'])
+@login_required
+@url_required
+def get_chart_data():
+    try:
+        rows = get_cached_data()
+        classLabels = {}
+        timeData = {}
+        roadOccupancy = {}
+
+        for row in rows:
+            timestamp = row['Timestamp']
+            classLabel = row['Class Name']
+            width = float(row['Width'])
+            height = float(row['Height'])
+            area = width * height
+
+            classLabels[classLabel] = classLabels.get(classLabel, 0) + 1
+            timeKey = timestamp.split()[0][:5]
+            timeData[timeKey] = timeData.get(timeKey, 0) + 1
+            roadOccupancy[classLabel] = roadOccupancy.get(classLabel, 0) + area
+
+        return {
+            'classLabels': {'keys': list(classLabels.keys()), 'values': list(classLabels.values())},
+            'timeData': {'keys': list(timeData.keys()), 'values': list(timeData.values())},
+            'roadOccupancy': {'keys': list(roadOccupancy.keys()), 'values': list(roadOccupancy.values())}
+        }
+    except Exception as e:
+        return render_template('error_page.html', message=str(e) + " From: /get_chart_data"), 500

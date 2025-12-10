@@ -5,6 +5,61 @@ body {
     background: #f2f4f7;
 }
 
+.head {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(20deg, #0037ff, #00f7ffc6, #8400ff);
+    padding: 20px;
+    text-align: center;
+    /* text-shadow: rgb(0, 30, 255) 0 0 3px; */
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 0 8px rgba(0, 13, 254, 0.574);
+}
+
+.subbuttons {
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    gap: 15px;
+    margin-left: auto;
+}
+.stylishtext {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    margin: 0;
+    justify-content: center;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    display: flex;
+    /* position: absolute;
+    right: 150px;
+    top: 33px; */
+    cursor: pointer;
+    cursor: pointer;
+    /* background-color: white;
+    border: 1px solid rgb(0, 47, 255);
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgb(0, 38, 254); */
+}
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 15px;
+}
+
 .container {
     display: flex;
     padding: 20px;
@@ -19,21 +74,6 @@ body {
     gap: 20px;
 }
 
-/* RIGHT SIDE COLUMN */
-.right-side {
-    width: 50%;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    height: 90vh;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.chart-content {
-    height: 95%;
-    border: 2px dashed #aaa;
-    border-radius: 10px;
-}
 
 /* VIDEO BOX */
 .video-box,
@@ -88,23 +128,45 @@ h3 {
     margin-top: 0;
 }
 
+/* RIGHT SIDE COLUMN */
 .right-side {
-    height: 100vh;
+    /* max-height: 80vh; */
+    /* height: auto; */
+    width: 50%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .chart-content {
-    height: 100%;
+    /* height: 90%; */
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;        /* CĂN GIỮA NGANG */
+    /* justify-content: center;   CĂN GIỮA DỌC */
+    gap: 16px;
+    border: 2px dashed #aaa;
+    border-radius: 10px;
 }
 
 .chart-content canvas {
-    width: 100% !important;
-    height: 300px !important;
+    width: 85% !important;     /* không chiếm full để thấy rõ căn giữa */
+    /* height:  !important; */
+    margin: 0 auto;            /* CĂN GIỮA CHẮC CHẮN */
+    display: block;
 }
 
 .chart-item {
     flex: 1;
+    width: 100%;
+    height: 90%;
+}
+
+.chart-item-1 {
+    flex: 1;
+    width: 80%;
     height: 100%;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Charts Dashboard</title>
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main_page.css') }}"> -->
-</head>
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/main_page.css') }}"> 
+ </head>
 <body>
   <div class="chart-container">
       <div class="chart-item1">
@@ -17,9 +17,9 @@
       <div class="chart-item">
           <canvas id="roadOccupancyChart"></canvas>
       </div>
-  </div>
+  </div> 
 
-  <!-- Chart.js and plugins -->
+Chart.js and plugins
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
@@ -228,35 +228,35 @@
       }, REFRESH_MS);
     }
 
-    // theme update (callable externally when theme toggled)
-    // function updateThemeColors() {
-    //   const color = getCurrentLabelColor();
-    //   // update chart text colors quickly before calling update()
-    //   if (classLabelChart) {
-    //     classLabelChart.options.plugins.legend.labels.color = color;
-    //     classLabelChart.options.plugins.datalabels.color = color;
-    //     classLabelChart.update();
-    //   }
-    //   if (vehicleTimeChart) {
-    //     vehicleTimeChart.options.scales.x.ticks.color = color;
-    //     vehicleTimeChart.options.scales.y.ticks.color = color;
-    //     vehicleTimeChart.options.scales.x.title.color = color;
-    //     vehicleTimeChart.options.scales.y.title.color = color;
-    //     vehicleTimeChart.options.plugins.legend.labels.color = color;
-    //     vehicleTimeChart.update();
-    //   }
-    //   if (roadOccupancyChart) {
-    //     roadOccupancyChart.options.scales.x.ticks.color = color;
-    //     roadOccupancyChart.options.scales.y.ticks.color = color;
-    //     roadOccupancyChart.options.scales.x.title.color = color;
-    //     roadOccupancyChart.options.scales.y.title.color = color;
-    //     roadOccupancyChart.options.plugins.legend.labels.color = color;
-    //     roadOccupancyChart.update();
-    //   }
-    // }
+//  theme update (callable externally when theme toggled)
+    function updateThemeColors() {
+      const color = getCurrentLabelColor();
+      // update chart text colors quickly before calling update()
+      if (classLabelChart) {
+        classLabelChart.options.plugins.legend.labels.color = color;
+        classLabelChart.options.plugins.datalabels.color = color;
+        classLabelChart.update();
+      }
+      if (vehicleTimeChart) {
+        vehicleTimeChart.options.scales.x.ticks.color = color;
+        vehicleTimeChart.options.scales.y.ticks.color = color;
+        vehicleTimeChart.options.scales.x.title.color = color;
+        vehicleTimeChart.options.scales.y.title.color = color;
+        vehicleTimeChart.options.plugins.legend.labels.color = color;
+        vehicleTimeChart.update();
+      }
+      if (roadOccupancyChart) {
+        roadOccupancyChart.options.scales.x.ticks.color = color;
+        roadOccupancyChart.options.scales.y.ticks.color = color;
+        roadOccupancyChart.options.scales.x.title.color = color;
+        roadOccupancyChart.options.scales.y.title.color = color;
+        roadOccupancyChart.options.plugins.legend.labels.color = color;
+        roadOccupancyChart.update();
+      }
+    }
 
     // expose theme update so other scripts (e.g. your toggle) can call it:
-    // window.updateChartTheme = updateThemeColors;
+    window.updateChartTheme = updateThemeColors;
 
     // cleanup on page unload
     window.addEventListener('beforeunload', () => {
@@ -268,4 +268,4 @@
   })();
   </script>
 </body>
-</html>
+</html> -->
